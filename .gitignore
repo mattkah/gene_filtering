@@ -1,0 +1,4 @@
+gene_data/
+*.tsv
+*.gff3
+output_data/
