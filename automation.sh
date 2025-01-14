@@ -10,17 +10,13 @@ awk '$3 == "gene" && $1 ~ /^[1-7]H/{print $1 "\t" $3 "\t" $4 "\t" $5 "\t" $9}' H
 
 sed 's/^chr//g' selected_regions.tsv| tail +2 | cut -f1,2,3 > search_regions.tsv
 
-# Filtering Compara Data for Gene IDs of orthologs of A.thaliana and O.sativa
-
-awk '$8 == "oryza_indica" || $8 == "arabidopsis_thaliana" {print $1 "\t" $5 "\t" $6 "\t" $8}' Compara.113.protein_default.homologies.tsv > test_out.tsv  
-
 # Input files
 
 cd ..
 
 data1="gene_data/search_regions.tsv"
 data2="gene_data/filtered_assembly.gff3"
-data3="gene_data/test_out.tsv" 
+data3="gene_data/Compara_protein_homologs.tsv" 
 
 output_dir="output_data"
 mkdir -p "$output_dir"
