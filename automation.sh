@@ -1,5 +1,10 @@
 #!/bin/zsh
 
+#SBATCH --job-name gene_filter
+#SBATCH --output gene.out 
+#SBATCH --ntasks 1
+#SBATCH --time 0-01:00
+
 cd /Users/mattkahler/Desktop/gene_filter_data/gene_data/
 
 # Filtering Ensembl data set for strictly gene regions of chromosomes 
