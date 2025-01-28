@@ -1,11 +1,11 @@
-#!/bin/zsh
+#!/bin/bash
 
 #SBATCH --job-name gene_filter
-#SBATCH --output gene.out 
+#SBATCH --output stdout.out 
 #SBATCH --ntasks 1
 #SBATCH --time 0-01:00
 
-cd /Users/mattkahler/Desktop/gene_filter_data/gene_data/
+cd /bigdata/koeniglab/mkahl006/gene_filtering/gene_data/
 
 # Filtering Ensembl data set for strictly gene regions of chromosomes 
 
@@ -13,7 +13,7 @@ awk '$3 == "gene" && $1 ~ /^[1-7]H/{print $1 "\t" $3 "\t" $4 "\t" $5 "\t" $9}' H
 
 # Dataset for regions to search
 
-sed 's/^chr//g' selected_regions.tsv| tail +2 | cut -f1,2,3 > search_regions.tsv
+sed 's/^chr//g' selected_regions.tsv| tail -n +2 | cut -f1,2,3 > search_regions.tsv
 
 # Input files
 
@@ -43,7 +43,7 @@ while IFS=$'\t' read -r line; do
    if [[ -n "$matched_genes" ]]; then
     for gene_id_mod in $matched_genes; do
       core=$(echo "$gene_id_mod" | awk -F '\t' '{if ($1 ~/ID=gene:/){match($1, /HORVU\.MOREX\.[^;]+/); print substr($1, RSTART, RLENGTH)}}')
-    
+
     matching_species=$(grep -w "$core" "$data3")
 
     if [[ -n "$matching_species" ]]; then
